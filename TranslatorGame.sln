@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslatorGame", "TranslatorGame\TranslatorGame.csproj", "{55D613AE-4374-4DDF-9B5C-CB2599983FCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55D613AE-4374-4DDF-9B5C-CB2599983FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D613AE-4374-4DDF-9B5C-CB2599983FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D613AE-4374-4DDF-9B5C-CB2599983FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D613AE-4374-4DDF-9B5C-CB2599983FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF41BA79-EDB2-4329-A42F-492DFD6A3CF7}
+	EndGlobalSection
+EndGlobal
