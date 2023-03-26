@@ -1,5 +1,14 @@
 ﻿using System.Windows;
-
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Speech;
+using System.Speech.Recognition;
 
 namespace TranslatorGame
 {
@@ -8,8 +17,8 @@ namespace TranslatorGame
         private AppDbContext _db = new AppDbContext();
         public MainWindow()
         {
-            var players = _db.Players;
             InitializeComponent();
+            SpeechRecognizer speechRecognizer = new SpeechRecognizer();
         }
 
 
