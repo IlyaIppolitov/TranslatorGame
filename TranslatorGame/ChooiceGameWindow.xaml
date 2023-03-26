@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="TranslatorGame.ChooiceGameWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TranslatorGame"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.Background>
+        <ImageBrush>
+            <ImageBrush.ImageSource>
+                <BitmapImage UriSource="https://gas-kvas.com/uploads/posts/2023-01/1673512540_gas-kvas-com-p-detskii-risunok-nebo-s-oblakami-25.jpg"/>
+            </ImageBrush.ImageSource>
+        </ImageBrush>
+    </UserControl.Background>
+    <UserControl.Resources>
+        <ResourceDictionary Source="ChoiceWindowDictionary.xaml"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox HorizontalAlignment ="Left" VerticalAlignment="Top"
+                  SelectedIndex="0"  Height="25"
+                  Width="100">
+            <ComboBoxItem Content="Русский"/>
+            <ComboBoxItem Content="Английский"/>
+            <ComboBoxItem Content="Немецкий"/>
+        </ComboBox>
+
+
+        <Button Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Template="{StaticResource welcomeButtonTemplate}" >
+            <StackPanel>
+                <TextBlock Style="{StaticResource textBlockStyle}" Text="Добро пожаловать,"/>
+                <TextBlock Style="{StaticResource textBlockStyle}" Text="логин!"/>
+            </StackPanel>
+        </Button>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <TextBlock Style="{StaticResource textBlockStyle}" Text="Медицина"/>
+            <Button  Style="{StaticResource buttonTemplate}" Margin="20">
+                <Ellipse Width="230" Height="230">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://kartinkin.net/uploads/posts/2022-12/1670355848_28-kartinkin-net-p-vrach-kartinka-pinterest-29.jpg" 
+                                        Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Style="{StaticResource textBlockStyle}" Text="Животные"/>
+            <Button  Style="{StaticResource buttonTemplate}" Margin="20">
+                <Ellipse Width="230" Height="230">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://sun9-85.userapi.com/impf/c834302/v834302256/b4da3/HSMqbWbvXSA.jpg?size=800x667&amp;quality=96&amp;sign=e4ee5b13bc01e8ca10167ad49d80c039&amp;c_uniq_tag=GrbxVd-8oajSoEnMPjo22InTwulVHMYVh4RUnE07KYA&amp;type=album" 
+                                        Stretch="UniformToFill">
+                        </ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel  Grid.Row="1" Grid.Column="2">
+            <TextBlock Style="{StaticResource textBlockStyle}"  Text="IT"/>
+            <Button Style="{StaticResource buttonTemplate}" Margin="20">
+                <Ellipse Width="230" Height="230">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://thumbs.dreamstime.com/b/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82-%D1%88%D0%B0%D1%80%D0%B6%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%8F-%D0%B7%D0%B0-%D0%BA%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BE%D0%BC-77862319.jpg" 
+                                        Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Button>
+        </StackPanel>
+
+        <Button Grid.Column="0" Grid.Row="2" 
+                Content="Выбрать"
+                Style="{StaticResource chooseButonStyle}" 
+                Click="Choice_Button_Click"/>
+        <Button Grid.Column="1" Grid.Row="2"
+                Content="Выбрать"
+                Style="{StaticResource chooseButonStyle}" 
+                Click="Choice_Button_Click"/>
+        <Button Grid.Column="2" Grid.Row="2" 
+                Content="Выбрать"
+                Style="{StaticResource chooseButonStyle}" 
+                Click="Choice_Button_Click"/>
+
+    </Grid>
+</UserControl>

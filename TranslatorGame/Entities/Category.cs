@@ -9,7 +9,7 @@ namespace TranslatorGame.Entities
     public class Category
     {
         public Guid Id { get; init; }
-        public string Name { get; set; }
+        public string Name { get; set;}
         public List<Dictionary> Dictionaries { get; set; } = new List<Dictionary>();
         public override string ToString()
         {

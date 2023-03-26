@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="TranslatorGame.GameWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TranslatorGame"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.Background>
+        <ImageBrush>
+            <ImageBrush.ImageSource>
+                <BitmapImage UriSource="https://gas-kvas.com/uploads/posts/2023-01/1673512540_gas-kvas-com-p-detskii-risunok-nebo-s-oblakami-25.jpg"/>
+            </ImageBrush.ImageSource>
+        </ImageBrush>
+    </UserControl.Background>
+    <UserControl.Resources>
+        <ResourceDictionary Source="ChoiceWindowDictionary.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="Назад" 
+                Width="150" 
+                Height="30"   
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="Back_Button_Click"
+                Style="{StaticResource chooseButonStyle}"/>
+        <Image Grid.Row="1" Width ="700"/>
+
+        <StackPanel Grid.Row="2">
+            <Button Content="Вариант 1"
+                    Width="200" 
+                    Height="30" 
+                    Margin="10" 
+                    Style="{StaticResource chooseButonStyle}"/>
+            <Button Content="Вариант 2" 
+                    Width="200" 
+                    Height="30" 
+                    Margin="10" 
+                    Style="{StaticResource chooseButonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

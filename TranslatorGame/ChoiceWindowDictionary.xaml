@@ -57,7 +57,7 @@
                                     <GradientStop Color="Aqua" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <ContentPresenter Content="Выбрать"
+                            <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
