@@ -10,7 +10,7 @@ namespace TranslatorGame.Entities
     {
         public Guid Id { get; init; }
         public string Name { get; set; }
-        public List<Word> Words { get; set; } = new List<Word>();
+        public List<Dictionary> Dictionaries { get; set; } = new List<Dictionary>();
         public override string ToString()
         {
             return ($"{Name}");
