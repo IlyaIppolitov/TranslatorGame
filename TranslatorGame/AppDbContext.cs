@@ -1,16 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Reflection;
 using TranslatorGame.Entities;
 
 namespace TranslatorGame
 {
     public class AppDbContext : DbContext
     {
-        private const string directory = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame\\LanguageGames.db";
-        private const string ConnectionString = $"Data Source = {directory}";
+        private const string dataBaseName = "LanguageGames.db";
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
+            var appDir = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..");
+            //var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame";
+            var ConnectionString = $"Data Source = {appDir}\\{dataBaseName}";
             optionsBuilder.UseSqlite(ConnectionString);
         }
 
