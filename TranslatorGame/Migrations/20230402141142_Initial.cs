@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TranslatorGame.Migrations
 {
-    public partial class LanguageGames : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,18 +22,6 @@ namespace TranslatorGame.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dictionaries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dictionaries", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
@@ -47,30 +35,6 @@ namespace TranslatorGame.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryDictionary",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DictionariesId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryDictionary", x => new { x.CategoriesId, x.DictionariesId });
-                    table.ForeignKey(
-                        name: "FK_CategoryDictionary_Categories_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryDictionary_Dictionaries_DictionariesId",
-                        column: x => x.DictionariesId,
-                        principalTable: "Dictionaries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Words",
                 columns: table => new
                 {
@@ -78,15 +42,15 @@ namespace TranslatorGame.Migrations
                     RussianText = table.Column<string>(type: "TEXT", nullable: true),
                     EnglishText = table.Column<string>(type: "TEXT", nullable: true),
                     GermanText = table.Column<string>(type: "TEXT", nullable: true),
-                    DictionaryId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    CategoryId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Words", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Words_Dictionaries_DictionaryId",
-                        column: x => x.DictionaryId,
-                        principalTable: "Dictionaries",
+                        name: "FK_Words_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -116,31 +80,20 @@ namespace TranslatorGame.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryDictionary_DictionariesId",
-                table: "CategoryDictionary",
-                column: "DictionariesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PlayerWord_WordsId",
                 table: "PlayerWord",
                 column: "WordsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Words_DictionaryId",
+                name: "IX_Words_CategoryId",
                 table: "Words",
-                column: "DictionaryId");
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoryDictionary");
-
-            migrationBuilder.DropTable(
                 name: "PlayerWord");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Players");
@@ -149,7 +102,7 @@ namespace TranslatorGame.Migrations
                 name: "Words");
 
             migrationBuilder.DropTable(
-                name: "Dictionaries");
+                name: "Categories");
         }
     }
 }

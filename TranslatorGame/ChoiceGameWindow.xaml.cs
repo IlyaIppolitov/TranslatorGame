@@ -48,37 +48,6 @@ namespace TranslatorGame
             var medicineCategory = categories[1];         
             var ITCategory = categories[2];
 
-            if (languages.SelectedIndex == 0)//если язык русский подгружаем категории на русском языке
-            {
-                medicineTextBlock.Text = medicineCategory.RussianName;
-                animalsTextBlock.Text = animalsCategory.RussianName;
-                ITTextBlock.Text = ITCategory.RussianName;
-                welcomeTextBlock.Text = "Добро пожаловать, ";
-                loginTextBlock.Text = "логин!";
-                chooseAnimalsButton.Content = chooseMedicineButton.Content 
-                    = chooseITButton.Content = "Выбрать"; 
-
-            }
-            else if (languages.SelectedIndex == 1)//если язык английский подгружаем категории на английском 
-            {
-                medicineTextBlock.Text = medicineCategory.EnglishName;
-                animalsTextBlock.Text = animalsCategory.EnglishName;
-                ITTextBlock.Text = ITCategory.EnglishName;
-                welcomeTextBlock.Text = "Welcome, ";
-                loginTextBlock.Text = "login!";
-                chooseAnimalsButton.Content = chooseMedicineButton.Content
-                    = chooseITButton.Content = "Choose";
-            }
-            else if (languages.SelectedIndex == 2)//если язык немецкий подгружаем категории на английском
-            {
-                medicineTextBlock.Text = medicineCategory.GermanName;
-                animalsTextBlock.Text = animalsCategory.GermanName;
-                ITTextBlock.Text = ITCategory.GermanName;
-                welcomeTextBlock.Text = "Willkommen, ";
-                loginTextBlock.Text = "anmelden!";
-                chooseAnimalsButton.Content = chooseMedicineButton.Content
-                    = chooseITButton.Content = "Wahlen";
-            }
         }
 
        

@@ -11,28 +11,13 @@ using TranslatorGame;
 namespace TranslatorGame.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230402100115_AddingFiledsNamesForCategory")]
-    partial class AddingFiledsNamesForCategory
+    [Migration("20230402141142_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
-
-            modelBuilder.Entity("CategoryDictionary", b =>
-                {
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("DictionariesId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CategoriesId", "DictionariesId");
-
-                    b.HasIndex("DictionariesId");
-
-                    b.ToTable("CategoryDictionary");
-                });
 
             modelBuilder.Entity("PlayerWord", b =>
                 {
@@ -55,36 +40,13 @@ namespace TranslatorGame.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EnglishName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("GermanName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RussianName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("TranslatorGame.Entities.Dictionary", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dictionaries");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("TranslatorGame.Entities.Player", b =>
@@ -108,7 +70,7 @@ namespace TranslatorGame.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("DictionaryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EnglishText")
@@ -122,24 +84,9 @@ namespace TranslatorGame.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DictionaryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Words");
-                });
-
-            modelBuilder.Entity("CategoryDictionary", b =>
-                {
-                    b.HasOne("TranslatorGame.Entities.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TranslatorGame.Entities.Dictionary", null)
-                        .WithMany()
-                        .HasForeignKey("DictionariesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("PlayerWord", b =>
@@ -182,16 +129,16 @@ namespace TranslatorGame.Migrations
 
             modelBuilder.Entity("TranslatorGame.Entities.Word", b =>
                 {
-                    b.HasOne("TranslatorGame.Entities.Dictionary", "Dictionary")
+                    b.HasOne("TranslatorGame.Entities.Category", "Category")
                         .WithMany("Words")
-                        .HasForeignKey("DictionaryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Dictionary");
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TranslatorGame.Entities.Dictionary", b =>
+            modelBuilder.Entity("TranslatorGame.Entities.Category", b =>
                 {
                     b.Navigation("Words");
                 });

@@ -9,13 +9,11 @@ namespace TranslatorGame.Entities
     public class Category
     {
         public Guid Id { get; init; }
-        public string RussianName { get; set;}
-        public string EnglishName { get; set; }
-        public string GermanName { get; set; }
-        public List<Dictionary> Dictionaries { get; set; } = new List<Dictionary>();
+        public string Name { get; set; }
+        public List<Word>? Words { get; set; } = new List<Word>();
         public override string ToString()
         {
-            return ($"{RussianName}");
+            return ($"{Name}");
         }
     }
 }

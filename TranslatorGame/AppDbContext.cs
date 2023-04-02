@@ -12,8 +12,8 @@ namespace TranslatorGame
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
-            var appDir = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..");
-            //var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame";
+            //var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame\\TranslatorGame");
+            var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame\\TranslatorGame";
             var ConnectionString = $"Data Source = {appDir}\\{dataBaseName}";
             optionsBuilder.UseSqlite(ConnectionString);
         }
@@ -21,6 +21,5 @@ namespace TranslatorGame
         public DbSet<Player> Players => Set<Player>();
         public DbSet<Word> Words => Set<Word>();
         public DbSet<Category> Categories => Set<Category>();
-        public DbSet<Dictionary> Dictionaries => Set<Dictionary>();
     }
 }
