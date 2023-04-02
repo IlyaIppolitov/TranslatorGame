@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Speech.Recognition;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -9,11 +10,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Speech;
 using System.Speech.Recognition;
-using System;
-using TranslatorGame.Entities;
-using System.Linq;
-using System.Text.RegularExpressions;
-using TranslatorGame.ValueObjects;
 
 namespace TranslatorGame
 {
