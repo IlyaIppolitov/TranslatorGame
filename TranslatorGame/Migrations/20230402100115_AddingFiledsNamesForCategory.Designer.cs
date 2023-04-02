@@ -11,8 +11,8 @@ using TranslatorGame;
 namespace TranslatorGame.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230326143511_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230402100115_AddingFiledsNamesForCategory")]
+    partial class AddingFiledsNamesForCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,7 +55,15 @@ namespace TranslatorGame.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("EnglishName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GermanName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RussianName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

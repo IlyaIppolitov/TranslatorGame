@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TranslatorGame.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class LanguageGames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

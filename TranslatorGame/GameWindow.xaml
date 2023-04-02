@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslatorGame"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="900">
+             d:DesignHeight="650" d:DesignWidth="900" Loaded="GameWindow_Loaded">
     <UserControl.Background>
         <ImageBrush>
             <ImageBrush.ImageSource>
-                <BitmapImage UriSource="https://gas-kvas.com/uploads/posts/2023-01/1673512540_gas-kvas-com-p-detskii-risunok-nebo-s-oblakami-25.jpg"/>
+                <BitmapImage UriSource="https://phonoteka.org/uploads/posts/2021-06/1624853420_24-phonoteka_org-p-detskie-oboi-oblaka-krasivo-26.jpg"/>
             </ImageBrush.ImageSource>
         </ImageBrush>
     </UserControl.Background>
@@ -21,6 +21,7 @@
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Content="Назад" 
                 Width="150" 
@@ -29,19 +30,44 @@
                 VerticalAlignment="Top"
                 Click="Back_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
-        <Image Grid.Row="1" Width ="700"/>
+        <Image Grid.Row="1" Width ="700" Source="{Binding image}"/>
+        <Button Grid.Row="2"
+                    Width="200" 
+                    Height="30" 
+                    Margin="10" 
+                    Style="{StaticResource chooseButonStyle}">
+            <TextBlock Text="Слово"/>
+        </Button>
 
-        <StackPanel Grid.Row="2">
-            <Button Content="Вариант 1"
+        <WrapPanel Grid.Row="3" Width="450">
+            <Button 
                     Width="200" 
                     Height="30" 
                     Margin="10" 
-                    Style="{StaticResource chooseButonStyle}"/>
-            <Button Content="Вариант 2" 
+                    Style="{StaticResource chooseButonStyle}">
+                <TextBlock Text="Вариант 1"/>
+            </Button>
+            <Button 
                     Width="200" 
                     Height="30" 
                     Margin="10" 
-                    Style="{StaticResource chooseButonStyle}"/>
-        </StackPanel>
+                    Style="{StaticResource chooseButonStyle}">
+                <TextBlock Text="Вариант 2"/>
+            </Button>
+            <Button
+                    Width="200" 
+                    Height="30" 
+                    Margin="10" 
+                    Style="{StaticResource chooseButonStyle}">
+                <TextBlock Text="Вариант 3"/>
+            </Button>
+            <Button
+                    Width="200" 
+                    Height="30" 
+                    Margin="10" 
+                    Style="{StaticResource chooseButonStyle}">
+                <TextBlock Text="Вариант 4"/>
+            </Button>
+        </WrapPanel>
     </Grid>
 </UserControl>
