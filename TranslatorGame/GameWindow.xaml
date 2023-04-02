@@ -31,43 +31,40 @@
                 Click="Back_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
         <Image Grid.Row="1" Width ="700" Source="{Binding image}"/>
-        <Button Grid.Row="2"
-                    Width="200" 
-                    Height="30" 
-                    Margin="10" 
-                    Style="{StaticResource chooseButonStyle}">
-            <TextBlock Text="Слово"/>
-        </Button>
+        <Button
+            x:Name="guessWord"
+            Grid.Row="2"
+            Width="200" 
+            Height="30" 
+            Margin="10" 
+            Style="{StaticResource chooseButonStyle}"
+            />
 
         <WrapPanel Grid.Row="3" Width="450">
-            <Button 
-                    Width="200" 
-                    Height="30" 
-                    Margin="10" 
-                    Style="{StaticResource chooseButonStyle}">
-                <TextBlock Text="Вариант 1"/>
-            </Button>
-            <Button 
-                    Width="200" 
-                    Height="30" 
-                    Margin="10" 
-                    Style="{StaticResource chooseButonStyle}">
-                <TextBlock Text="Вариант 2"/>
-            </Button>
             <Button
-                    Width="200" 
-                    Height="30" 
-                    Margin="10" 
-                    Style="{StaticResource chooseButonStyle}">
-                <TextBlock Text="Вариант 3"/>
-            </Button>
+                x:Name="answer1"
+                Width="200" 
+                Height="30" 
+                Margin="10" 
+                Style="{StaticResource chooseButonStyle}"/>
+            <Button 
+                x:Name="answer2"
+                Width="200" 
+                Height="30" 
+                Margin="10" 
+                Style="{StaticResource chooseButonStyle}"/>
             <Button
-                    Width="200" 
-                    Height="30" 
-                    Margin="10" 
-                    Style="{StaticResource chooseButonStyle}">
-                <TextBlock Text="Вариант 4"/>
-            </Button>
+                x:Name="answer3"
+                Width="200" 
+                Height="30" 
+                Margin="10" 
+                Style="{StaticResource chooseButonStyle}"/>
+            <Button
+                x:Name="answer4"
+                Width="200" 
+                Height="30" 
+                Margin="10" 
+                Style="{StaticResource chooseButonStyle}"/>
         </WrapPanel>
     </Grid>
 </UserControl>
