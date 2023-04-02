@@ -9,9 +9,7 @@ namespace TranslatorGame
     public class AppDbContext : DbContext
     {
         //private const string dataBaseName = "LanguageGames.db";
-
         private const string dataBaseName = @"Data Source = C:\Users\79053\Desktop\Курсовая\TranslatorGame\LanguageGames.db";
-
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {

@@ -7,17 +7,7 @@
         mc:Ignorable="d"
         Title="TranslatorGame" Height="650" Width="900" Loaded="Window_Loaded">
 
-    <StackPanel>
-        <DataGrid x:Name="dic" SelectionChanged="dic_SelectionChanged">
-            
-        </DataGrid>
-        <TextBlock Text="Русское название"/>
-        <TextBox x:Name="rus"/>
-        <TextBlock Text="Английское название"/>
-        <TextBox x:Name="eng"/>
-        <TextBlock Text="Немецкое название"/>
-        <TextBox x:Name="ger"/>
-
-        <Button Click="Button_Click">Категория</Button>
-    </StackPanel>
+    <Grid>
+        
+    </Grid>
 </Window>
