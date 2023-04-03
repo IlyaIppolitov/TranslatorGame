@@ -2,12 +2,15 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TranslatorGame.Entities;
+using OpenAI.Models.Images; 
 
 namespace TranslatorGame
 {
@@ -17,13 +20,10 @@ namespace TranslatorGame
         LanguageOptions _languageOptions;
 
         private OpenAiClient _client;
-        private string? _key = Environment.GetEnvironmentVariable("openai_api_key");
-        //public GameWindow()
-        //{
-        //    InitializeComponent();
-        //}
+        private string? _key = Environment.GetEnvironmentVariable("openai_api_key");       
+
         public GameWindow(string category, LanguageOptions languageOptions)
-        {      
+        {
             InitializeComponent();
             if (category is null)
                 throw new ArgumentNullException("category");
@@ -39,52 +39,64 @@ namespace TranslatorGame
 
         private async void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            if (_key is not null)
+            {
+                _client = new OpenAiClient(_key);
+            }
+            else
+            {
+                throw new InvalidOperationException("Переменная окружения openai_api_key не задана!");
+            }
             var words = await DbLanguageGamesAPI.GetWordByCategoryAsync(_categoryName);
             Random rnd = new Random();
-
             var countOfWords = words.Count;
+            var qWord = words.ToList()[rnd.Next(countOfWords)];       
+            string guessWord = words.Where(w => w.Id == qWord.Id).Select(w => w.Russian).First();
+            guessWorButton.Content = guessWord;
 
-            var qWord = words.ToList()[rnd.Next(countOfWords)];
+            //var imgBytes = await _client.GenerateImageBytes(guessWord, "guessWord", OpenAiImageSize._256);
+            //Bitmap bmp;
+            //BitmapImage btmImage; 
+            //using (var ms = new MemoryStream(imgBytes))
+            //{
+            //    bmp = new Bitmap(ms);
+            //    btmImage = BitmapToImageSource(bmp);
+            //    outputImage.Source = btmImage; 
+            //}
 
-            guessWord.Content = words.Where(w => w.Id == qWord.Id).Select(w => w.Russian);
-
-            var rightNumber = rnd.Next(4) + 1;
-
+            var rightNumber = rnd.Next(4);          
+   
             PutContentToButton(rightNumber, qWord);
-
+            
             var options = GetOptionsWords(qWord, words);
 
             int j = 0;
             for (int i = 1; i <= 4; ++i)
             {
-                if (i == rightNumber) {++i; continue;}
-
-                PutContentToButton(i, options[++j]);
+                if (i == rightNumber) 
+                {
+                    continue; 
+                }
+                PutContentToButton(i, options[j]);
+                j++;
             }
 
-
         }
-
-        private BitmapImage BitmapToImageSource(byte[] img)//метод, который картинку из байтов
-                                                           //конвертирует в BitmapImage
+        public BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
-            if (img.Length == 0) return null; //выбросить исключение
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(img))
+            using (MemoryStream memory = new MemoryStream())
             {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = mem;
-                image.EndInit();
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
             }
-            image.Freeze();
-            return image;
         }
-
-
         void PutContentToButton(int button, Word content)
         {
             string word;
@@ -139,31 +151,5 @@ namespace TranslatorGame
             }
             return options;
         }
-
-
-
-
-        //private async void GameWindow_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    if (_key is not null)
-        //    {
-        //        _client = new OpenAiClient(_key);
-        //    }
-        //    else
-        //    {
-        //        throw new InvalidOperationException("Переменная окружения openai_api_key не задана!");
-        //    }
-
-        //    var image = new BitmapImage();
-        //    int options = 10;//количество слов, которое будет выводиться на экране
-        //    то есть вывели 1 картинку, нажали вариант ответа, затем 2 и так далее до 10
-        //    for (int i = 0; i < options; i++)
-        //    {
-        //        //var img = await _client.GenerateImageBytes("женщина");
-        //        //image = BitmapToImageSource(img);
-        //    }
-        //}
-
-
     }
 }

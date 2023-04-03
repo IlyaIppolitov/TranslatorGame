@@ -30,9 +30,10 @@
                 VerticalAlignment="Top"
                 Click="Back_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
-        <Image Grid.Row="1" Width ="700" Source="{Binding image}"/>
+        <Image x:Name="outputImage" Grid.Row="1" Width ="700">
+        </Image>
         <Button
-            x:Name="guessWord"
+            x:Name="guessWorButton"
             Grid.Row="2"
             Width="200" 
             Height="30" 

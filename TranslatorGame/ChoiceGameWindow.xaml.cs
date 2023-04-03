@@ -44,8 +44,8 @@ namespace TranslatorGame
             //подзгружаем все категории с бд
             var categories = await DbLanguageGamesAPI.GetCategoriesAsync();
 
-            chooseButton1.Content = categories.Select(c => c.Name).ToList()[0];
-            chooseButton2.Content = categories.Select(c => c.Name).ToList()[1];
+            chooseButton1.Content = categories.Select(c => c.Name).ToList()[1];
+            chooseButton2.Content = categories.Select(c => c.Name).ToList()[0];
             chooseButton3.Content = categories.Select(c => c.Name).ToList()[2];
         }
 
