@@ -10,14 +10,17 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TranslatorGame.Entities;
-using OpenAI.Models.Images; 
+using OpenAI.Models.Images;
+using System.Speech.Synthesis;
 
 namespace TranslatorGame
 {
     public partial class GameWindow : UserControl
     {
+        private AppDbContext _db;
         private string _categoryName;
         LanguageOptions _languageOptions;
+        public Word QWord { get; set; }
 
         private OpenAiClient _client;
         private string? _key = Environment.GetEnvironmentVariable("openai_api_key");       
@@ -25,6 +28,7 @@ namespace TranslatorGame
         public GameWindow(string category, LanguageOptions languageOptions)
         {
             InitializeComponent();
+            _db = new AppDbContext();
             if (category is null)
                 throw new ArgumentNullException("category");
 
@@ -47,28 +51,28 @@ namespace TranslatorGame
             {
                 throw new InvalidOperationException("Переменная окружения openai_api_key не задана!");
             }
+
             var words = await DbLanguageGamesAPI.GetWordByCategoryAsync(_categoryName);
             Random rnd = new Random();
             var countOfWords = words.Count;
-            var qWord = words.ToList()[rnd.Next(countOfWords)];       
-            string guessWord = words.Where(w => w.Id == qWord.Id).Select(w => w.Russian).First();
+            QWord = words.ToList()[rnd.Next(countOfWords)];       
+            string guessWord = words.Where(w => w.Id == QWord.Id).Select(w => w.Russian).First();
             guessWorButton.Content = guessWord;
+
 
             //var imgBytes = await _client.GenerateImageBytes(guessWord, "guessWord", OpenAiImageSize._256);
             //Bitmap bmp;
-            //BitmapImage btmImage; 
+            //BitmapImage btmImage;
             //using (var ms = new MemoryStream(imgBytes))
             //{
             //    bmp = new Bitmap(ms);
             //    btmImage = BitmapToImageSource(bmp);
-            //    outputImage.Source = btmImage; 
+            //    outputImage.Source = btmImage;
             //}
 
-            var rightNumber = rnd.Next(4);          
-   
-            PutContentToButton(rightNumber, qWord);
-            
-            var options = GetOptionsWords(qWord, words);
+            var rightNumber = rnd.Next(4);            
+            PutContentToButton(rightNumber, QWord);            
+            var options = GetOptionsWords(QWord, words);
 
             int j = 0;
             for (int i = 1; i <= 4; ++i)
@@ -80,7 +84,6 @@ namespace TranslatorGame
                 PutContentToButton(i, options[j]);
                 j++;
             }
-
         }
         public BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
@@ -150,6 +153,55 @@ namespace TranslatorGame
                 options.Add(word);
             }
             return options;
+        }
+
+        private async void Check_Answer_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //запоминаем это слово, чтобы в это цикле больше не повторять его
+            //помещать не в messageBox
+            //сказать Илье, что вылетает все равно программа
+            var button = (Button)sender;
+            switch (_languageOptions)
+            {
+                case LanguageOptions.English:
+                    if (button.Content == QWord.English)
+                    {
+                        MessageBox.Show("Верно угадали слово!");
+                        Content = new GameWindow(_categoryName, _languageOptions);                       
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы неверно угадали слово!");
+                        
+                       
+                        Word w = new Word();
+
+                        w.Russian = QWord.Russian;
+                        w.English = QWord.English;
+                        w.German = QWord.German;
+                        w.Category = QWord.Category;
+                        await _db.Words.AddAsync(w);
+
+                        await _db.SaveChangesAsync();
+                        Content = new GameWindow(_categoryName, _languageOptions);
+                    }
+                    break;
+                case LanguageOptions.German:
+                    if (button!.Content == QWord.German) MessageBox.Show("Верно угадали слово!");
+                    else
+                    {
+                        MessageBox.Show("Вы неверно угадали слово!");
+                       
+                        await _db.Words.AddAsync(QWord);
+                        await _db.SaveChangesAsync();
+
+                        Content = new GameWindow(_categoryName, _languageOptions);
+                    }
+                    break;
+
+                default:
+                    throw new Exception("Что-то пошло не так в части выбора языка!");
+            }            
         }
     }
 }

@@ -47,24 +47,28 @@
                 Width="200" 
                 Height="30" 
                 Margin="10" 
+                Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button 
                 x:Name="answer2"
                 Width="200" 
                 Height="30" 
                 Margin="10" 
+                Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button
                 x:Name="answer3"
                 Width="200" 
                 Height="30" 
                 Margin="10" 
+                Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button
                 x:Name="answer4"
                 Width="200" 
                 Height="30" 
                 Margin="10" 
+                Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
         </WrapPanel>
     </Grid>
