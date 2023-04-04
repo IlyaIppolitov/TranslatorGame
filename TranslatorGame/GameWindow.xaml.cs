@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using TranslatorGame.Entities;
 using OpenAI.Models.Images;
 using System.Speech.Synthesis;
+using Microsoft.EntityFrameworkCore;
 
 namespace TranslatorGame
 {
@@ -157,9 +158,6 @@ namespace TranslatorGame
 
         private async void Check_Answer_Button_Click(object sender, RoutedEventArgs e)
         {
-            //запоминаем это слово, чтобы в это цикле больше не повторять его
-            //помещать не в messageBox
-            //сказать Илье, что вылетает все равно программа
             var button = (Button)sender;
             switch (_languageOptions)
             {
@@ -172,17 +170,6 @@ namespace TranslatorGame
                     else
                     {
                         MessageBox.Show("Вы неверно угадали слово!");
-                        
-                       
-                        Word w = new Word();
-
-                        w.Russian = QWord.Russian;
-                        w.English = QWord.English;
-                        w.German = QWord.German;
-                        w.Category = QWord.Category;
-                        await _db.Words.AddAsync(w);
-
-                        await _db.SaveChangesAsync();
                         Content = new GameWindow(_categoryName, _languageOptions);
                     }
                     break;
