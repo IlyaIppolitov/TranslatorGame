@@ -13,25 +13,33 @@ using TranslatorGame.Entities;
 using OpenAI.Models.Images;
 using System.Speech.Synthesis;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace TranslatorGame
 {
     public partial class GameWindow : UserControl
     {
-        private AppDbContext _db;
+        public DbLanguageGamesAPI dbApi = new DbLanguageGamesAPI();
+        
+        public OpenAiLib AiLib = new OpenAiLib();
+
+        private WordProvider _provider;
+
+        private List<Word> _dictionaryWords;
+
+        private List<Word> _playerWords;
+
         private string _categoryName;
+        public string _playerLogin = "Champion";
+        private int _rightNumber;
         LanguageOptions _languageOptions;
         public Word QWord { get; set; }
 
-        private OpenAiClient _client;
-        private string? _key = Environment.GetEnvironmentVariable("openai_api_key");       
 
         public GameWindow(string category, LanguageOptions languageOptions)
         {
             InitializeComponent();
-            _db = new AppDbContext();
-            if (category is null)
-                throw new ArgumentNullException("category");
 
             _categoryName = category;
             _languageOptions = languageOptions;
@@ -44,92 +52,77 @@ namespace TranslatorGame
 
         private async void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_key is not null)
-            {
-                _client = new OpenAiClient(_key);
-            }
-            else
-            {
-                throw new InvalidOperationException("Переменная окружения openai_api_key не задана!");
-            }
+            // определить имеющийся перечень слов из базы данных
+            _dictionaryWords = await dbApi.GetWordByCategoryAsync(_categoryName);
 
-            var words = await DbLanguageGamesAPI.GetWordByCategoryAsync(_categoryName);
+            _playerWords = await dbApi.GetPlayerWords(_playerLogin, _categoryName);
+
+            _provider = new WordProvider(new[]
+            {
+                (_dictionaryWords, 1.0),
+                (_playerWords, 0.6)
+            });
+            //await dbApi.AddNewPlayer(_playerLogin, " ");
+            FillAllButtons();
+        }
+
+        private void FillAllButtons()
+        {
+            QWord = _provider.Take(1).First();
+            QWord = _provider.Take(1).First();
+
+
+            guessWorButton.Content = QWord.Russian;
+
             Random rnd = new Random();
-            var countOfWords = words.Count;
-            QWord = words.ToList()[rnd.Next(countOfWords)];       
-            string guessWord = words.Where(w => w.Id == QWord.Id).Select(w => w.Russian).First();
-            guessWorButton.Content = guessWord;
 
-
-            //var imgBytes = await _client.GenerateImageBytes(guessWord, "guessWord", OpenAiImageSize._256);
-            //Bitmap bmp;
-            //BitmapImage btmImage;
-            //using (var ms = new MemoryStream(imgBytes))
-            //{
-            //    bmp = new Bitmap(ms);
-            //    btmImage = BitmapToImageSource(bmp);
-            //    outputImage.Source = btmImage;
-            //}
-
-            var rightNumber = rnd.Next(4) + 1;            
-            PutContentToButton(rightNumber, QWord);            
-            var options = GetOptionsWords(QWord, words);
+            _rightNumber = rnd.Next(4) + 1;
+            PutContentToButton(_rightNumber, QWord);
+            var options = GetOptionsWords(QWord, _dictionaryWords);
 
             int j = 0;
             for (int i = 1; i <= 4; ++i)
             {
-                if (i == rightNumber) 
+                if (i == _rightNumber)
                 {
-                    continue; 
+                    continue;
                 }
                 PutContentToButton(i, options[j]);
                 j++;
             }
-        }
-        public BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
 
-                return bitmapimage;
-            }
+            //outputImage.Source = await AiLib.GetPictureAsync(QWord.English);
         }
-        void PutContentToButton(int button, Word content)
+
+        void PutContentToButton(int buttonNumber, Word word)
         {
-            string word;
+            string wordString;
             switch (_languageOptions)
             {
                 case LanguageOptions.English:
-                    word = content.English;
+                    wordString = word.English;
                     break;
 
                 case LanguageOptions.German:
-                    word = content.German;
+                    wordString = word.German;
                     break;
 
                 default:
                     throw new Exception("Что-то пошло не так в части выбора языка!");
             }
-            switch (button)
+            switch (buttonNumber)
             {
                 case 1:
-                    answer1.Content = word;
+                    answer1.Content = wordString;
                     break;
                 case 2:
-                    answer2.Content = word;
+                    answer2.Content = wordString;
                     break;
                 case 3:
-                    answer3.Content = word;
+                    answer3.Content = wordString;
                     break;
                 case 4:
-                    answer4.Content = word;
+                    answer4.Content = wordString;
                     break;
             }
         }
@@ -158,37 +151,39 @@ namespace TranslatorGame
 
         private async void Check_Answer_Button_Click(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
-            switch (_languageOptions)
+            if (CheckRightButton((Button)sender))
             {
-                case LanguageOptions.English:
-                    if (button.Content == QWord.English)
-                    {
-                        MessageBox.Show("Верно угадали слово!");
-                        Content = new GameWindow(_categoryName, _languageOptions);                       
-                    }
-                    else
-                    {
-                        MessageBox.Show("Вы неверно угадали слово!");
-                        Content = new GameWindow(_categoryName, _languageOptions);
-                    }
-                    break;
-                case LanguageOptions.German:
-                    if (button!.Content == QWord.German) MessageBox.Show("Верно угадали слово!");
-                    else
-                    {
-                        MessageBox.Show("Вы неверно угадали слово!");
-                       
-                        await _db.Words.AddAsync(QWord);
-                        await _db.SaveChangesAsync();
+                MessageBox.Show("Молодец!");
+                FillAllButtons();
+            }
+            else
+            {
+                MessageBox.Show("Промазал! Мы всё запишем и вернёмся!");
+                await dbApi.AddWordToPlayerAsync(_playerLogin, QWord);
 
-                        Content = new GameWindow(_categoryName, _languageOptions);
-                    }
-                    break;
+                 FillAllButtons();
+
+                //Content = new GameWindow(_categoryName, _languageOptions);
+            }        
+        }
+
+        private bool CheckRightButton(Button button)
+        {
+            switch (_rightNumber)
+            {
+                case 1:
+                    return answer1.Name == button.Name;
+                case 2:
+                    return answer2.Name == button.Name;
+                case 3:
+                    return answer3.Name == button.Name;
+                case 4:
+                    return answer4.Name == button.Name;
 
                 default:
-                    throw new Exception("Что-то пошло не так в части выбора языка!");
-            }            
+                    throw new Exception("Что-то пошло не так в части выбора кнопок!");
+            }
         }
+
     }
 }

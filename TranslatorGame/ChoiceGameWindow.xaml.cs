@@ -11,6 +11,7 @@ namespace TranslatorGame
 {
     public partial class ChoiceGameWindow : UserControl
     {
+        public DbLanguageGamesAPI dbApi = new DbLanguageGamesAPI();
 
         public ChoiceGameWindow()
         {
@@ -42,7 +43,7 @@ namespace TranslatorGame
         private async void FillButtonsContentAsync()
         {
             //подзгружаем все категории с бд
-            var categories = await DbLanguageGamesAPI.GetCategoriesAsync();
+            var categories = await dbApi.GetCategoriesAsync();
 
             chooseButton1.Content = categories.Select(c => c.Name).ToList()[1];
             chooseButton2.Content = categories.Select(c => c.Name).ToList()[0];

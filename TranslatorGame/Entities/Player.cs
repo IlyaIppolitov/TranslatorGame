@@ -11,16 +11,11 @@ namespace TranslatorGame.Entities
     {
         public Guid Id { get; init; }
         public string Login { get; set; }
-        public Password Password { get; set; }
+        public Password? Password { get; set; }
         public List<Word>? Words { get; set; } = new List<Word>();
         public override string ToString()
         {
             return ($"{Login}");
-        }
-
-        public IEnumerable<Word> GetBadWord()
-        {
-            yield return Words.FirstOrDefault();
         }
     }
 }

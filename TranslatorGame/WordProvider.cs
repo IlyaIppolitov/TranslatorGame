@@ -90,7 +90,7 @@ namespace TranslatorGame
 
                     _currentWord = word;
                     ++_listsIndexes[listIndex]; // меняем айтем
-                    returned.Add(word);
+                    returned.Add(_currentWord);
 
                     return true;
                 }

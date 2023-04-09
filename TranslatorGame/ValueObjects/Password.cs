@@ -35,7 +35,7 @@ namespace TranslatorGame.ValueObjects
             var hasUpperChar = new Regex(@"[A-Z]+");
             var hasMinimum8Chars = new Regex(@".{8,}");
 
-            return hasNumber.IsMatch(value) && hasUpperChar.IsMatch(value) && hasMinimum8Chars.IsMatch(value);
+            return hasNumber.IsMatch(value) && hasUpperChar.IsMatch(value) && hasMinimum8Chars.IsMatch(value) || value == "" || value == " ";
         }
 
         protected bool Equals(Password other)

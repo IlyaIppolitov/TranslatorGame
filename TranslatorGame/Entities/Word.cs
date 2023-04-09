@@ -11,7 +11,6 @@ namespace TranslatorGame.Entities
         public string? German { get; set; }
         public Category? Category { get; set; }
         public List<Player>? Players { get; set; } = new List<Player>();
-        public uint? Mistakes { get; set; }
         public override string ToString()
         {
             return ($"{Russian}");
