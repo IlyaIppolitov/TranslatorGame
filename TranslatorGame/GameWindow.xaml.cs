@@ -71,7 +71,7 @@ namespace TranslatorGame
             //    outputImage.Source = btmImage;
             //}
 
-            var rightNumber = rnd.Next(4);            
+            var rightNumber = rnd.Next(4) + 1;            
             PutContentToButton(rightNumber, QWord);            
             var options = GetOptionsWords(QWord, words);
 
