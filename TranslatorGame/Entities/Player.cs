@@ -17,5 +17,10 @@ namespace TranslatorGame.Entities
         {
             return ($"{Login}");
         }
+
+        public IEnumerable<Word> GetBadWord()
+        {
+            yield return Words.FirstOrDefault();
+        }
     }
 }
