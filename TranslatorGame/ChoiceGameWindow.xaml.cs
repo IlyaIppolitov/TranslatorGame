@@ -49,9 +49,5 @@ namespace TranslatorGame
             chooseButton2.Content = categories.Select(c => c.Name).ToList()[0];
             chooseButton3.Content = categories.Select(c => c.Name).ToList()[2];
         }
-
-
-
-
     }
 }

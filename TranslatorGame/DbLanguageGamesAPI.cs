@@ -30,7 +30,9 @@ namespace TranslatorGame
         // Получить слова по категории
         public async Task<List<Word>> GetWordByCategoryAsync(string _categoryName)
         {            
-            return await _db.Words.Where(w => w.Category.Name == _categoryName).ToListAsync();
+            var words = await _db.Words.Where(w => w.Category.Name == _categoryName).ToListAsync();
+            words.ShuffleMe();
+            return words;
         }
 
         // Добавить нового игрока
@@ -62,20 +64,33 @@ namespace TranslatorGame
         // Получить плохие слова игрока
         public async Task<List<Word>> GetPlayerWords(string login, string _categoryName)
         {
-            var player = await _db.Players.Include(p => p.Words).Where(p => p.Login == login).FirstAsync();
-            if (player.Words == null)
+            var player = await _db.Players
+                .Include(p => p.Words!)
+                    .ThenInclude(w => w.Category)
+                .Where(p => p.Login == login).FirstAsync();
+            var words = player.Words!.Where(w => w.Category!.Name == _categoryName).ToList();
+            if (words == null)
                 return new List<Word>();
-            return player.Words;
+
+            words.ShuffleMe();
+            return words;
         }
 
         public async Task AddWordToPlayerAsync(string login, Word word)
         {
             var player = await _db.Players.Include(p => p.Words).Where(p => p.Login == login).FirstAsync();
-            if (player.Words.Where(w => w.Id == word.Id).Count() == 0)
+            if (player.Words!.Where(w => w.Id == word.Id).Count() == 0)
             {
                 player.Words.Add(word);
                 await _db.SaveChangesAsync();
             }
+        }
+
+        // Получить плохие слова игрока
+        public async Task<Word> GetWordById(Guid guid)
+        {
+            var word = await _db.Words.Where(w => w.Id == guid).FirstOrDefaultAsync();
+            return word!;
         }
     }
 }

@@ -24,6 +24,8 @@ namespace TranslatorGame
         
         public OpenAiLib AiLib = new OpenAiLib();
 
+        IEnumerator<Word> _enumerator;
+
         private WordProvider _provider;
 
         private List<Word> _dictionaryWords;
@@ -62,15 +64,23 @@ namespace TranslatorGame
                 (_dictionaryWords, 1.0),
                 (_playerWords, 0.6)
             });
+            _enumerator = _provider.Take(_dictionaryWords.Count + _playerWords.Count).GetEnumerator();
             //await dbApi.AddNewPlayer(_playerLogin, " ");
             FillAllButtons();
         }
 
         private void FillAllButtons()
         {
-            QWord = _provider.Take(1).First();
-            QWord = _provider.Take(1).First();
+            _enumerator.MoveNext();
 
+            QWord = _enumerator.Current;
+
+            if (QWord == null)
+            {
+                MessageBox.Show("Молодец! Ты прошёл все слова в этой категории!");
+                Content = new ChoiceGameWindow();
+                return;
+            }
 
             guessWorButton.Content = QWord.Russian;
 
