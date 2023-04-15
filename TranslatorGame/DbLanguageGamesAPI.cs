@@ -30,7 +30,7 @@ namespace TranslatorGame
         // Получить слова по категории
         public async Task<List<Word>> GetWordByCategoryAsync(string _categoryName)
         {            
-            var words = await _db.Words.Where(w => w.Category.Name == _categoryName).ToListAsync();
+            var words = await _db.Words.Where(w => w.Category!.Name == _categoryName).ToListAsync();
             words.ShuffleMe();
             return words;
         }
@@ -81,7 +81,7 @@ namespace TranslatorGame
             var player = await _db.Players.Include(p => p.Words).Where(p => p.Login == login).FirstAsync();
             if (player.Words!.Where(w => w.Id == word.Id).Count() == 0)
             {
-                player.Words.Add(word);
+                player.Words!.Add(word);
                 await _db.SaveChangesAsync();
             }
         }
@@ -91,6 +91,18 @@ namespace TranslatorGame
         {
             var word = await _db.Words.Where(w => w.Id == guid).FirstOrDefaultAsync();
             return word!;
+        }
+
+        public async Task<bool> DeleteWordFromPlayerAsync(string login, Word word)
+        {
+            var player = await _db.Players.Include(p => p.Words).Where(p => p.Login == login).FirstAsync();
+            if (player.Words!.Any(w => w.Id == word.Id))
+            {
+                player.Words!.Remove(word);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }

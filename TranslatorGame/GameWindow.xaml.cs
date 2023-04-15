@@ -32,6 +32,8 @@ namespace TranslatorGame
 
         private List<Word> _playerWords;
 
+        private List<Word> _wordsToDelete;
+
         private string _categoryName;
         public string _playerLogin = "Champion";
         private int _rightNumber;
@@ -61,7 +63,7 @@ namespace TranslatorGame
 
             _provider = new WordProvider(new[]
             {
-                (_dictionaryWords, 1.0),
+                (_dictionaryWords, 0.8),
                 (_playerWords, 0.6)
             });
             _enumerator = _provider.Take(_dictionaryWords.Count + _playerWords.Count).GetEnumerator();
@@ -164,6 +166,9 @@ namespace TranslatorGame
             if (CheckRightButton((Button)sender))
             {
                 MessageBox.Show("Молодец!");
+
+                await dbApi.DeleteWordFromPlayerAsync(_playerLogin, QWord);
+
                 FillAllButtons();
             }
             else
