@@ -72,7 +72,7 @@ namespace TranslatorGame
             FillAllButtons();
         }
 
-        private void FillAllButtons()
+        private async void FillAllButtons()
         {
             _enumerator.MoveNext();
 
@@ -80,7 +80,7 @@ namespace TranslatorGame
 
             if (QWord == null)
             {
-                MessageBox.Show("Молодец! Ты прошёл все слова в этой категории!");
+                outputMessageTextblock.Text = "Молодец! Ты прошёл все слова в этой категории!";
                 Content = new ChoiceGameWindow(_login);
                 return;
             }
@@ -166,7 +166,7 @@ namespace TranslatorGame
         {
             if (CheckRightButton((Button)sender))
             {
-                MessageBox.Show("Молодец!");
+                outputMessageTextblock.Text = "Молодец!Угадал!";
 
                 await dbApi.DeleteWordFromPlayerAsync(_playerLogin, QWord);
 
@@ -174,7 +174,7 @@ namespace TranslatorGame
             }
             else
             {
-                MessageBox.Show("Промазал! Мы всё запишем и вернёмся!");
+                outputMessageTextblock.Text = "Промазал! Мы всё запишем и вернёмся!";
                 await dbApi.AddWordToPlayerAsync(_playerLogin, QWord);
 
                  FillAllButtons();

@@ -29,10 +29,6 @@ namespace TranslatorGame
             }
         }
 
-        public void StartOpenAiClient()
-        {
-
-        }
         public async Task<BitmapImage> GetPictureAsync(string descriprtion) 
         {
             var imgBytes = await _client.GenerateImageBytes(descriprtion, "guessWord", OpenAiImageSize._256);

@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslatorGame"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="900" Loaded="GameWindow_Loaded">
+             d:DesignHeight="800" d:DesignWidth="900" Loaded="GameWindow_Loaded">
     <UserControl.Resources>
         <ResourceDictionary Source="StylesDictionary.xaml"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="3.8*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="0.6*"/>
+            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Content="Назад"   
@@ -21,17 +22,22 @@
                 VerticalAlignment="Top"
                 Click="Back_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
-        <Image x:Name="outputImage" Grid.Row="1" Width ="700">
-        </Image>
+        <Image x:Name="outputImage" Grid.Row="1" Width ="700"/>
+
+        <TextBlock Grid.Row="2" x:Name="outputMessageTextblock" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   FontWeight="DemiBold"/>
         <Button
             x:Name="guessWorButton"
-            Grid.Row="2"
+            Grid.Row="3"
             Width="200" 
             Margin="10" 
             Style="{StaticResource chooseButonStyle}"
             />
 
-        <WrapPanel Grid.Row="3" Width="450">
+        <WrapPanel Grid.Row="4" Width="450">
             <Button
                 x:Name="answer1"
                 Width="200" 

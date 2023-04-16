@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TranslatorGame"
         mc:Ignorable="d"
-        Title="TranslatorGame" Height="650" Width="900" Loaded="Window_Loaded">
+        Title="TranslatorGame" Height="800" Width="900" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush>
             <ImageBrush.ImageSource>

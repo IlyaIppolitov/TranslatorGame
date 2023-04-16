@@ -28,13 +28,13 @@
             <TextBlock 
                        Text="Логин" 
                        Width="150" 
-                       Height="40" 
+                       Height="30" 
                        Margin="10"
                        Style="{StaticResource textBlockStyle}"/>
             <TextBlock 
                        Text="Пароль" 
                        Width="150" 
-                       Height="40" 
+                       Height="30" 
                        Margin="10" 
                        Style="{StaticResource textBlockStyle}"/>
         </StackPanel>
@@ -44,11 +44,11 @@
                     VerticalAlignment="Center">
             <TextBox x:Name="loginTextBox"
                      Width="200" 
-                     Height="40" 
+                     Height="30" 
                      Margin="10"/>
             <PasswordBox x:Name="passwordBox"
                      Width="200" 
-                     Height="40" 
+                     Height="30" 
                      Margin="10"/>
         </StackPanel>
 
