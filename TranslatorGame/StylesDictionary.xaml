@@ -41,22 +41,24 @@
 
     <Style TargetType="Button" x:Key="chooseButonStyle">
         <Style.Setters>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#1f9dfc" Offset="2"/>
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="Aqua" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10">
-                            <Border.Background>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="#1f9dfc" Offset="2"/>
-                                    <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="Aqua" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
@@ -65,6 +67,14 @@
                 </Setter.Value>
             </Setter>
         </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3e3e3e"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 

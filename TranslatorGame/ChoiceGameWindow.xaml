@@ -6,15 +6,9 @@
              xmlns:local="clr-namespace:TranslatorGame"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="900" Loaded="ChoiceGameWindow_Loaded">
-    <UserControl.Background>
-        <ImageBrush>
-            <ImageBrush.ImageSource>
-                <BitmapImage UriSource="https://phonoteka.org/uploads/posts/2021-06/1624853420_24-phonoteka_org-p-detskie-oboi-oblaka-krasivo-26.jpg"/>
-            </ImageBrush.ImageSource>
-        </ImageBrush>
-    </UserControl.Background>
+    
     <UserControl.Resources>
-        <ResourceDictionary Source="ChoiceWindowDictionary.xaml"/>
+        <ResourceDictionary Source="StylesDictionary.xaml"/>
     </UserControl.Resources>
 
     <Grid>
@@ -39,8 +33,7 @@
 
         <Button Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Template="{StaticResource welcomeButtonTemplate}" >
             <StackPanel>
-                <TextBlock x:Name="welcomeTextBlock" Style="{StaticResource textBlockStyle}"/>
-                <TextBlock x:Name="loginTextBlock" Style="{StaticResource textBlockStyle}"/>
+                <TextBlock x:Name="welcomeTextBlock" Style="{StaticResource textBlockStyle}" Text="Добро пожаловать!"/>
             </StackPanel>
         </Button>
 

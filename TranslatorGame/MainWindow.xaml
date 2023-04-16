@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:TranslatorGame"
         mc:Ignorable="d"
         Title="TranslatorGame" Height="650" Width="900" Loaded="Window_Loaded">
-
+    <Window.Background>
+        <ImageBrush>
+            <ImageBrush.ImageSource>
+                <BitmapImage UriSource="https://phonoteka.org/uploads/posts/2021-06/1624853420_24-phonoteka_org-p-detskie-oboi-oblaka-krasivo-26.jpg"/>
+            </ImageBrush.ImageSource>
+        </ImageBrush>
+    </Window.Background>
     <Grid>
         
     </Grid>

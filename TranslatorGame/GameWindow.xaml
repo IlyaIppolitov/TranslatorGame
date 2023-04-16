@@ -6,26 +6,17 @@
              xmlns:local="clr-namespace:TranslatorGame"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="900" Loaded="GameWindow_Loaded">
-    <UserControl.Background>
-        <ImageBrush>
-            <ImageBrush.ImageSource>
-                <BitmapImage UriSource="https://phonoteka.org/uploads/posts/2021-06/1624853420_24-phonoteka_org-p-detskie-oboi-oblaka-krasivo-26.jpg"/>
-            </ImageBrush.ImageSource>
-        </ImageBrush>
-    </UserControl.Background>
     <UserControl.Resources>
-        <ResourceDictionary Source="ChoiceWindowDictionary.xaml"/>
+        <ResourceDictionary Source="StylesDictionary.xaml"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="3.8*"/>
+            <RowDefinition Height="0.6*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Назад" 
-                Width="150" 
-                Height="30"   
+        <Button Content="Назад"   
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Back_Button_Click"
@@ -36,7 +27,6 @@
             x:Name="guessWorButton"
             Grid.Row="2"
             Width="200" 
-            Height="30" 
             Margin="10" 
             Style="{StaticResource chooseButonStyle}"
             />
@@ -45,28 +35,24 @@
             <Button
                 x:Name="answer1"
                 Width="200" 
-                Height="30" 
                 Margin="10" 
                 Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button 
                 x:Name="answer2"
                 Width="200" 
-                Height="30" 
                 Margin="10" 
                 Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button
                 x:Name="answer3"
                 Width="200" 
-                Height="30" 
                 Margin="10" 
                 Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>
             <Button
                 x:Name="answer4"
-                Width="200" 
-                Height="30" 
+                Width="200"  
                 Margin="10" 
                 Click="Check_Answer_Button_Click"
                 Style="{StaticResource chooseButonStyle}"/>

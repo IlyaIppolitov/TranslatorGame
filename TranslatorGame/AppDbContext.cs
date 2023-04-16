@@ -12,8 +12,8 @@ namespace TranslatorGame
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
-            //var appDir = "C:\\Users\\79053\\Desktop\\Курсовая\\TranslatorGame";
-            var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame\\TranslatorGame";
+            var appDir = "C:\\Users\\79053\\Desktop\\Курсач\\TranslatorGame";
+            //var appDir = "D:\\ITStep\\CSharp\\EFCore\\TranslatorGame\\TranslatorGame";
             var ConnectionString = $"Data Source = {appDir}\\{dataBaseName}";
             optionsBuilder.UseSqlite(ConnectionString);
         }

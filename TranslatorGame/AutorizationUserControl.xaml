@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="TranslatorGame.AutorizationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TranslatorGame"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="StylesDictionary.xaml"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center">
+            <TextBlock 
+                       Text="Логин" 
+                       Width="150" 
+                       Height="40" 
+                       Margin="10"
+                       Style="{StaticResource textBlockStyle}"/>
+            <TextBlock 
+                       Text="Пароль" 
+                       Width="150" 
+                       Height="40" 
+                       Margin="10" 
+                       Style="{StaticResource textBlockStyle}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center">
+            <TextBox x:Name="loginTextBox"
+                     Width="200" 
+                     Height="40" 
+                     Margin="10"/>
+            <PasswordBox x:Name="passwordBox"
+                     Width="200" 
+                     Height="40" 
+                     Margin="10"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="1" 
+                    HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock x:Name="outputTextBlock" Style="{StaticResource textBlockStyle}"/>
+            <Button Content="Войти" Margin="10"
+                Width="300" HorizontalAlignment="Center" 
+                Style="{StaticResource chooseButonStyle}"
+                Click="ComeIn_Button_Click"/>
+            <Button Content="Регистрация" Margin="10"
+                Width="300" HorizontalAlignment="Center" 
+                Style="{StaticResource chooseButonStyle}"
+                Click="Registration_Button_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -19,12 +19,11 @@ namespace TranslatorGame
 
         public MainWindow()
         {
-            InitializeComponent();
-            SpeechRecognizer speechRecognizer = new SpeechRecognizer();            
+            InitializeComponent();           
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Content = new ChoiceGameWindow();
+            this.Content = new AutorizationUserControl();
         }
         // Финализатор - вызывается Garbage collector
         ~MainWindow()

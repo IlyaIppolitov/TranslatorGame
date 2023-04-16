@@ -75,7 +75,12 @@ namespace TranslatorGame
             words.ShuffleMe();
             return words;
         }
-
+        //получить игрока по логину
+        public async Task<Player> GetPlayerAsync(string login)
+        {
+            List<Player> players = await _db.Players.Where(p => p.Login == login).ToListAsync();
+            return players.First();
+        }
         public async Task AddWordToPlayerAsync(string login, Word word)
         {
             var player = await _db.Players.Include(p => p.Words).Where(p => p.Login == login).FirstAsync();
