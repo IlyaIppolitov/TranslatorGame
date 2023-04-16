@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
-using TranslatorGame.Entities;
 
 
 namespace TranslatorGame
@@ -12,13 +9,15 @@ namespace TranslatorGame
     public partial class ChoiceGameWindow : UserControl
     {
         public DbLanguageGamesAPI dbApi = new DbLanguageGamesAPI();
-
-        public ChoiceGameWindow()
+        private string _login;
+        public ChoiceGameWindow(string login)
         {
+            _login = login;
             InitializeComponent();           
         }
         private async void ChoiceGameWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            loginTextBlock.Text = _login;
             //по умолчанию устанавливаем русский язык 
             languages.ItemsSource = Enum.GetValues(typeof(LanguageOptions));
 
@@ -28,14 +27,13 @@ namespace TranslatorGame
         }
 
         private void Choose_Button_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {    
             var category = ((Button)sender).Content as string;
             
             LanguageOptions languageOptions;
             if (Enum.TryParse<LanguageOptions>(languages.SelectedValue.ToString(), out languageOptions))
             {
-                this.Content = new GameWindow(category, languageOptions);
+                this.Content = new GameWindow(category, languageOptions, _login);
             }
             else { throw new ArgumentException("language not selected!"); }
         }

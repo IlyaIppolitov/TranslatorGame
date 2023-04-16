@@ -33,6 +33,7 @@ namespace TranslatorGame
         private List<Word> _playerWords;
 
         private List<Word> _wordsToDelete;
+        private string _login;
 
         private string _categoryName;
         public string _playerLogin = "Champion";
@@ -41,17 +42,17 @@ namespace TranslatorGame
         public Word QWord { get; set; }
 
 
-        public GameWindow(string category, LanguageOptions languageOptions)
+        public GameWindow(string category, LanguageOptions languageOptions, string login)
         {
             InitializeComponent();
-
+            _login = login;
             _categoryName = category;
             _languageOptions = languageOptions;
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
-            Content = new ChoiceGameWindow();
+            Content = new ChoiceGameWindow(_login);
         }
 
         private async void GameWindow_Loaded(object sender, RoutedEventArgs e)
@@ -80,7 +81,7 @@ namespace TranslatorGame
             if (QWord == null)
             {
                 MessageBox.Show("Молодец! Ты прошёл все слова в этой категории!");
-                Content = new ChoiceGameWindow();
+                Content = new ChoiceGameWindow(_login);
                 return;
             }
 

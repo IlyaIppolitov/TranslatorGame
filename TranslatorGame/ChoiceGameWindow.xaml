@@ -34,6 +34,7 @@
         <Button Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Template="{StaticResource welcomeButtonTemplate}" >
             <StackPanel>
                 <TextBlock x:Name="welcomeTextBlock" Style="{StaticResource textBlockStyle}" Text="Добро пожаловать!"/>
+                <TextBlock x:Name="loginTextBlock" Style="{StaticResource textBlockStyle}"/>
             </StackPanel>
         </Button>
 

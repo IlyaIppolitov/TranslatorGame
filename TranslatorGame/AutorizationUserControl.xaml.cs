@@ -35,7 +35,7 @@ namespace TranslatorGame
 
                 if (player.Password!.ToString() == password)
                 {
-                    Content = new ChoiceGameWindow();
+                    Content = new ChoiceGameWindow(player.Login);
                 }
                 else
                 {
