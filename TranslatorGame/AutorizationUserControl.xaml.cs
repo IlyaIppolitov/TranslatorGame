@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using TranslatorGame.Entities;
 
@@ -27,6 +29,8 @@ namespace TranslatorGame
             if (!_dbAPI.CheckPlayerExists(login))
             {
                 outputTextBlock.Text = "Неверный логин и/или пароль";
+                await Task.Delay(TimeSpan.FromSeconds(3));
+                outputTextBlock.Text = string.Empty;
             }
             else
             {
@@ -40,6 +44,8 @@ namespace TranslatorGame
                 else
                 {
                     outputTextBlock.Text = "Неверный пароль и/или пароль";
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                    outputTextBlock.Text = string.Empty;
                 }
             }
         }

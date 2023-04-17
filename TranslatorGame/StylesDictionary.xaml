@@ -28,8 +28,6 @@
         </Style.Setters>
     </Style>
 
-
-
     <Style TargetType="TextBlock" x:Key="textBlockStyle">
         <Style.Setters>
             <Setter Property="HorizontalAlignment" Value="Center"/>

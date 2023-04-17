@@ -2,19 +2,11 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using TranslatorGame.Entities;
-using OpenAI.Models.Images;
-using System.Speech.Synthesis;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace TranslatorGame
 {
@@ -68,12 +60,12 @@ namespace TranslatorGame
                 (_playerWords, 0.6)
             });
             _enumerator = _provider.Take(_dictionaryWords.Count + _playerWords.Count).GetEnumerator();
-            //await dbApi.AddNewPlayer(_playerLogin, " ");
             FillAllButtons();
         }
 
         private async void FillAllButtons()
         {
+            
             _enumerator.MoveNext();
 
             QWord = _enumerator.Current;
@@ -167,6 +159,8 @@ namespace TranslatorGame
             if (CheckRightButton((Button)sender))
             {
                 outputMessageTextblock.Text = "Молодец!Угадал!";
+                await Task.Delay(TimeSpan.FromSeconds(2));
+                outputMessageTextblock.Text = string.Empty;
 
                 await dbApi.DeleteWordFromPlayerAsync(_playerLogin, QWord);
 
@@ -175,11 +169,11 @@ namespace TranslatorGame
             else
             {
                 outputMessageTextblock.Text = "Промазал! Мы всё запишем и вернёмся!";
+                await Task.Delay(TimeSpan.FromSeconds(2));
+                outputMessageTextblock.Text = string.Empty;
                 await dbApi.AddWordToPlayerAsync(_playerLogin, QWord);
 
                  FillAllButtons();
-
-                //Content = new GameWindow(_categoryName, _languageOptions);
             }        
         }
 

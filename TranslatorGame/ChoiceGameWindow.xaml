@@ -26,7 +26,7 @@
 
         <ComboBox x:Name="languages" 
             HorizontalAlignment ="Left" VerticalAlignment="Top"
-                    Height="25"
+                  Height="25"
                   Width="100">
         </ComboBox>
 
