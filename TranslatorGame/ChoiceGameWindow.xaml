@@ -38,6 +38,11 @@
             </StackPanel>
         </Button>
 
+        <Button Grid.Column="2" Content="Выход" 
+                Style="{StaticResource chooseButonStyle}" 
+                HorizontalAlignment="Right"
+                Click="Exit_Button_Click"/>
+
         <StackPanel Grid.Row="1" Grid.Column="0">
             <TextBlock x:Name="medicineTextBlock" Style="{StaticResource textBlockStyle}" 
                        />

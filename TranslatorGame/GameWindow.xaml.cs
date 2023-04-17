@@ -104,7 +104,7 @@ namespace TranslatorGame
                 j++;
             }
 
-            //outputImage.Source = await AiLib.GetPictureAsync(QWord.English);
+            outputImage.Source = await AiLib.GetPictureAsync(QWord.English);
         }
 
         void PutContentToButton(int buttonNumber, Word word)

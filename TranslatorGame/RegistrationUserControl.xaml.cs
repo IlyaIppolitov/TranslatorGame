@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,6 +19,8 @@ namespace TranslatorGame
 
         private async void Create_Account_Button_Click(object sender, RoutedEventArgs e)
         {
+            outputPasswordTextBlock.Text = string.Empty; 
+            outputLoginTextBlock.Text = string.Empty;
             string newLogin = newLoginTextBox.Text;
             string newPassword = newPasswordBox.Password.ToString();
             string newPasswordCheck = newPasswordBoxCheck.Password.ToString();
@@ -42,6 +45,8 @@ namespace TranslatorGame
             {
                 await _dbAPI.AddNewPlayer(newLogin, newPassword);
                 outputPasswordTextBlock.Text = "Пользователь добавлен";
+                await Task.Delay(TimeSpan.FromSeconds(2));
+                Content = new AutorizationUserControl(); 
             }
         }
 
